@@ -3,27 +3,27 @@
 
 document.addEventListener("DOMContentLoaded", function() { // waits for dom to load before performin functions
     let buttons = document.getElementsByTagName("button"); // gets all button elements within html and returns them all as an array
-for (let button of buttons){ // iterates through the array of the buttons 
-    button.addEventListener("click", function() { //adding event listener for each button being clicked
-        if (this.getAttribute("data-type") === SubmitEvent) { // creating if statemnet to check the value of each button
-            checkAnswer(); // checks the answer by calling the check answer function
-        } else {
-            let gameType = this.getAttribute("data-type");
-            runGame(gameType);
-        }
-    })
-}
+
+    for (let button of buttons) { // iterates through the array of the buttons 
+        button.addEventListener("click", function() { //adding event listener for each button being clicked
+            if (this.getAttribute("data-type") === "submit") { // creating if statemnet to check the value of each button
+                checkAnswer(); // checks the answer by calling the check answer function
+            } else {
+                let gameType = this.getAttribute("data-type");
+                runGame(gameType);
+            }
+        });
+    }
 
     runGame("addition");
-    
 
-})
+});
 
 /** 
  * the main game "loop", called when the script is first loaded 
  * and after the users answer has been processed
 */
-function runGame(gameType){ // passing gametype intop the function as an argument 
+function runGame(gameType) { // passing gametype intop the function as an argument 
 
     // creates to random numbers bet 1 & 25
     let num1 = Math.floor(Math.random() * 25) + 1;
@@ -43,9 +43,17 @@ function runGame(gameType){ // passing gametype intop the function as an argumen
  */
 
 function checkAnswer(){
-    let userAnswer = parseInt(document.getElementById("answer-box").value);
-    let calculatedAnswer = calculateCorrectAnswer();
-    let isCorrect = userAnswer === calcuatedAnswer[0]
+    let userAnswer = parseInt(document.getElementById("answer-box").value); // checking the answer by retrieving it from the dom 
+    let calculatedAnswer = calculateCorrectAnswer(); // getting the correct answer from the calculate function 
+    let isCorrect = userAnswer === calculatedAnswer[0] // setting an is correct variable to check if the users answer is the same as the correct answer 
+
+    if (isCorrect) { // if correct, congratulates the user 
+        alert("Hey! You got it right! :D");
+    } else { // if incorrect, sympathise with user and tell them the correct answer 
+        alert(`Awww.... you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}! `);
+    }
+
+    runGame(calculatedAnswer[1]);
 }
 
 /**
@@ -75,10 +83,10 @@ function incrementWrongAnswer(){
 
 }
 
-function displayAdditionQuestion(opperand1, opperand2){ 
+function displayAdditionQuestion(operand1, operand2) { 
     // pulls and displays the question to the user 
-    document.getElementById('operand1').textContent = opperand1;
-    document.getElementById('operand2').textContent = opperand2;
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = "+";
 
 }
