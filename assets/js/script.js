@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() { // waits for dom to l
 for (let button of buttons){ // iterates through the array of the buttons 
     button.addEventListener("click", function() { //adding event listener for each button being clicked
         if (this.getAttribute("data-type") === SubmitEvent) { // creating if statemnet to check the value of each button
-            alert("You Clicked Submit") // this will tell the user that submit is clicked 
+            checkAnswer(); // checks the answer by calling the check answer function
         } else {
             let gameType = this.getAttribute("data-type");
             runGame(gameType);
@@ -37,13 +37,34 @@ function runGame(gameType){ // passing gametype intop the function as an argumen
     }
 }
 
+/**
+ * Checks the against the first element in 
+ * the returned calculateCorrectAnswer array
+ */
 
 function checkAnswer(){
-
+    let userAnswer = parseInt(document.getElementById("answer-box").value);
+    let calculatedAnswer = calculateCorrectAnswer();
+    let isCorrect = userAnswer === calcuatedAnswer[0]
 }
 
-function calculateCorrectAnswer(){
+/**
+ * Gets the operands (the number) and the operator (plus,, minus etc)
+ * directly from the dom, and returns the correct answer.
+ */
 
+function calculateCorrectAnswer(){
+    // function grabs the given value of operand1 + operand2 and stores it as an array    
+    let operand1 = parseInt(document.getElementById('operand1').innerHTML)
+    let operand2 = parseInt(document.getElementById('operand2').innerHTML)
+    let operator = document.getElementById("operator").innerHTML
+
+    if (operator === "+") {
+        return[operand1 + operand2, "addition"];
+    } else {
+        alert(`Unimplemented operator ${operator}`)
+        throw `Unimplemented operator ${operator}. Aborting!`;
+    }
 }
 
 function incrementScore(){
@@ -55,6 +76,7 @@ function incrementWrongAnswer(){
 }
 
 function displayAdditionQuestion(opperand1, opperand2){ 
+    // pulls and displays the question to the user 
     document.getElementById('operand1').textContent = opperand1;
     document.getElementById('operand2').textContent = opperand2;
     document.getElementById('operator').textContent = "+";
