@@ -9,22 +9,34 @@ for (let button of buttons){ // iterates through the array of the buttons
             alert("You Clicked Submit") // this will tell the user that submit is clicked 
         } else {
             let gameType = this.getAttribute("data-type");
-            alert(`you clicked ${gameType}`); // this will tell the user what button is clicked
+            runGame(gameType);
         }
     })
 }
+
+    runGame("addition");
+    
+
 })
 
 /** 
  * the main game "loop", called when the script is first loaded 
  * and after the users answer has been processed
 */
-function runGame(){
+function runGame(gameType){ // passing gametype intop the function as an argument 
 
     // creates to random numbers bet 1 & 25
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
+
+    if (gameType === "addition") { // checking if the game type parameter is equal to addition & display the addition question
+        displayAdditionQuestion(num1, num2)
+    } else { // if not will give an error to say its the wrong game type
+        alert(`Unknown game type: ${gameType}`);
+        throw `Unknown game type: ${gameType}.Aborting!`
+    }
 }
+
 
 function checkAnswer(){
 
@@ -42,7 +54,10 @@ function incrementWrongAnswer(){
 
 }
 
-function displayAdditionQuestion(){
+function displayAdditionQuestion(opperand1, opperand2){ 
+    document.getElementById('operand1').textContent = opperand1;
+    document.getElementById('operand2').textContent = opperand2;
+    document.getElementById('operator').textContent = "+";
 
 }
 
