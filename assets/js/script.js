@@ -15,9 +15,15 @@ for (let button of buttons){ // iterates through the array of the buttons
 }
 })
 
-
+/** 
+ * the main game "loop", called when the script is first loaded 
+ * and after the users answer has been processed
+*/
 function runGame(){
 
+    // creates to random numbers bet 1 & 25
+    let num1 = Math.floor(Math.random() * 25) + 1;
+    let num2 = Math.floor(Math.random() * 25) + 1;
 }
 
 function checkAnswer(){
